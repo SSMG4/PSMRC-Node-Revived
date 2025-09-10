@@ -6,7 +6,7 @@ html,
 body {
   height: 110%;
   /*background-color: #4791D2;*/
-  background: url('../img/bg.jpg');
+  background: url('public/img/bg.jpg');
   background-repeat: no-repeat;
   /*background-size: auto 100%;*/
   background-size: cover;
