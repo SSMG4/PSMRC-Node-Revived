@@ -40,12 +40,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res){
   console.log('Express: app get / cookie', req.cookies.cookieName);
-  res.sendFile(path.join(__dirname, 'views/index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get('/check', function(req, res) {
   const { cookieName } = req.cookies;
-  const isReady = fs.existsSync(path.join(__dirname, '/public/pack/', `${cookieName}.zip`));
+  const isReady = fs.existsSync(path.join(__dirname, 'public/pack/', `${cookieName}.zip`));
   
   const downloadUrl = `/pack/${cookieName}.zip`;
 
@@ -61,7 +61,7 @@ app.post('/upload', function(req, res){
   console.log('Express: upload cookie ', req.cookies);
   var form = new formidable.IncomingForm(); // create an incoming form object
   form.multiples = true; // specify that we want to allow the user to upload multiple files in a single request
-  form.uploadDir = path.join(__dirname, '/uploads'); // store all uploads in the /uploads directory
+  form.uploadDir = path.join(__dirname, 'uploads'); // store all uploads in the /uploads directory
   const toggles = {
     canHasItems: false,
     canHasTerrain: false,
