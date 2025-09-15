@@ -37,9 +37,9 @@ function findPNG(shortDirectory, filename, index /* optional */, toggles /* opti
     const debug = false;
     const { canHasItems, canHasTerrain } = toggles;
     const userDir = importDirectory + '-unzip/assets/minecraft/textures/' + shortDirectory + filename;
-    let fallbackShortDir = '/uploads/fallback_blank';
-    if (canHasItems && canHasTerrain) fallbackShortDir = '/uploads/fallback/';
-    if (debug) fallbackShortDir = '/uploads/fallback_debug/';
+    let fallbackShortDir = 'uploads/fallback_blank';
+    if (canHasItems && canHasTerrain) fallbackShortDir = 'uploads/fallback/';
+    if (debug) fallbackShortDir = 'uploads/fallback_debug/';
 
     const fallbackDir = path.join(__dirname, fallbackShortDir, shortDirectory, `${index}.png`);
     
@@ -48,7 +48,7 @@ function findPNG(shortDirectory, filename, index /* optional */, toggles /* opti
     } else if (fs.existsSync(fallbackDir)) {
       resolve(fallbackDir);
     } else {
-      resolve(__dirname + '/uploads/fallback/404.png');
+      resolve(__dirname + 'uploads/fallback/404.png');
     }
   })
 
@@ -157,8 +157,8 @@ module.exports = function(res, cookie, options = {}) {
   
   // cookie = 'override';
   try {
-    fs.createReadStream(__dirname + '/uploads/' + cookie)
-      .pipe( unzip.Extract({ path: __dirname + '/uploads/' + cookie + '-unzip' }) )
+    fs.createReadStream(__dirname + 'uploads/' + cookie)
+      .pipe( unzip.Extract({ path: __dirname + 'uploads/' + cookie + '-unzip' }) )
       // .on('finish', () => {fixNested().then( () => {} )}
       .on('finish', () => {
         console.log('Psmrc.js: finished unzip');
@@ -175,8 +175,8 @@ function process(res, cookie, options) {
   const { smoothing } = options;
   // Organize an output folder
   // Create specific user's cookie folder first
-  importDirectory = __dirname + '/uploads/' + cookie;
-  exportDirectory = path.join(__dirname, '/uploads/', `${cookie}-create`, 'rePatch/PCSE00491/Common/res/TitleUpdate/res');
+  importDirectory = __dirname + 'uploads/' + cookie;
+  exportDirectory = path.join(__dirname, 'uploads/', `${cookie}-create`, 'rePatch/PCSE00491/Common/res/TitleUpdate/res');
   fs.mkdirp(exportDirectory, (err) => {
     if (err) {console.log('Psmrc.js: process err', err);}
 
@@ -201,7 +201,7 @@ function process(res, cookie, options) {
         .then( ()=> {
 
           // Create a zip archive
-          var fileName = __dirname + '/public/pack/' + cookie + '.zip';
+          var fileName = __dirname + 'public/pack/' + cookie + '.zip';
           var fileOutput = fs.createWriteStream(fileName);
           var cleanFileWriting = function() {
             // This function performs cleanup which would otherwise cause bugs
@@ -210,7 +210,7 @@ function process(res, cookie, options) {
           }
 
           archive.pipe(fileOutput);
-          archive.glob("**/*", { cwd: path.join(__dirname, '/uploads/', `${cookie}-create/`) });
+          archive.glob("**/*", { cwd: path.join(__dirname, 'uploads/', `${cookie}-create/`) });
           archive.on('error', function(err){console.log('Psmrc.js: archive.on()', err)});
           archive.finalize();
 
