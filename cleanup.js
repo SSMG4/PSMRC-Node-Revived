@@ -5,9 +5,9 @@ const path = require('path');
 module.exports = {
 
   cleanByCookie: function(cookie) {
-    rmdir(__dirname + '/uploads/' + cookie + '-create', () => console.log(`Cleanup: deleted ${cookie}-create dir.`))
-    rmdir(__dirname + '/uploads/' + cookie + '-unzip', () => console.log(`Cleanup: deleted ${cookie}-unzip dir`))
-    fs.unlink(__dirname + '/uploads/' + cookie, () => console.log(`Cleanup: deleted ${cookie} file`))
+    rmdir(__dirname + 'uploads/' + cookie + '-create', () => console.log(`Cleanup: deleted ${cookie}-create dir.`))
+    rmdir(__dirname + 'uploads/' + cookie + '-unzip', () => console.log(`Cleanup: deleted ${cookie}-unzip dir`))
+    fs.unlink(__dirname + 'uploads/' + cookie, () => console.log(`Cleanup: deleted ${cookie} file`))
   },
 
   cleanByExpiration: function(cookie) {
@@ -24,15 +24,15 @@ module.exports = {
       }
     }
 
-    var pack = fs.readdirSync(__dirname + '/public/pack/');
-    pack.forEach(file => expireFile(__dirname + '/public/pack/' + file));
+    var pack = fs.readdirSync(__dirname + 'public/pack/');
+    pack.forEach(file => expireFile(__dirname + 'public/pack/' + file));
 
-    var uploads = fs.readdirSync(__dirname + '/uploads/');
-    uploads.forEach(file => expireFile(__dirname + '/uploads/' + file));
+    var uploads = fs.readdirSync(__dirname + 'uploads/');
+    uploads.forEach(file => expireFile(__dirname + 'uploads/' + file));
   },
 
   cleanExistingZip: function(cookie) {
-    const existingZip = path.join(__dirname, '/public/pack/', `${cookie}.zip`);
+    const existingZip = path.join(__dirname, 'public/pack/', `${cookie}.zip`);
     if (fs.existsSync(existingZip)) {
       fs.unlink(existingZip, () => console.log('Cleanup: cleaned up existing file before starting'))
     } else {
